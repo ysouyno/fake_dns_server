@@ -34,7 +34,7 @@ $ dig +retry=0 -p 1053 @127.0.0.1 +noedns baidu.com
 在`dig`命令返回后`Ctrl+C`结束`nc`，此时生成`query_packet.txt`，然后运行以下命令生成`response_packet.txt`：
 
 ``` shellsession
-nc -u 8.8.8.8 53 < query_packet.txt > response_packet.txt
+$ nc -u 8.8.8.8 53 < query_packet.txt > response_packet.txt
 ```
 
 执行一秒后即可用`Ctrl+C`结束`nc`，此时生成`response_packet.txt`。
