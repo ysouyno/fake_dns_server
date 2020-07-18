@@ -38,3 +38,43 @@ $ nc -u 8.8.8.8 53 < query_packet.txt > response_packet.txt
 ```
 
 执行一秒后即可用`Ctrl+C`结束`nc`，此时生成`response_packet.txt`。
+
+## `dig` for Windows
+
+可以在这里找到：“[Dig command on Windows OS](https://websistent.com/dig-command-on-windows-os/)”，附“[dig-for-windows-9.9.5-W1.zip](files/dig-for-windows-9.9.5-W1.zip)”。
+
+## Chapter 4
+
+在`Windows`下，先运行`cargo run`，然后再使用`dig`如下：
+
+``` shellsession
+> dig @127.0.0.1 -p 2053 google.com
+
+; <<>> DiG 9.9.5-W1 <<>> @127.0.0.1 -p 2053 google.com
+; (1 server found)
+;; global options: +cmd
+;; Got answer:
+;; ->>HEADER<<- opcode: QUERY, status: NOERROR, id: 1224
+;; flags: qr rd ra; QUERY: 1, ANSWER: 1, AUTHORITY: 0, ADDITIONAL: 0
+
+;; QUESTION SECTION:
+;google.com.                    IN      A
+
+;; ANSWER SECTION:
+google.com.             60      IN      A       46.82.174.69
+
+;; Query time: 39 msec
+;; SERVER: 127.0.0.1#2053(127.0.0.1)
+;; WHEN: Sat Jul 18 14:22:15 中国标准时间 2020
+;; MSG SIZE  rcvd: 54
+```
+
+此时`cargo run`的输出如下：
+
+``` shellsession
+> cargo run
+    Finished dev [unoptimized + debuginfo] target(s) in 0.02s
+     Running `target\debug\fake_dns_server.exe`
+Received query: DnsQuestion { name: "google.com", qtype: A }
+Answer: A { domain: "google.com", addr: 46.82.174.69, ttl: 60 }
+```
